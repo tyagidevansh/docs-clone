@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table"
 import { LoaderIcon } from "lucide-react";
 import { DocumentRow } from "./document-row";
+import { Button } from "@/components/ui/button";
 
 interface DocumentsTableProps {
   documents: Doc<"documents">[] | undefined;
@@ -34,8 +35,8 @@ export const DocumentsTable = ({
             <TableRow className="hover:bg-transparent border-none">
               <TableHead>Name</TableHead>
               <TableHead>&nbsp;</TableHead>
-              <TableHead>Shared</TableHead>
-              <TableHead>Created At</TableHead>
+              <TableHead className="hidden md:table-cell">Shared</TableHead>
+              <TableHead className="hidden md:table-cell">Created At</TableHead>
             </TableRow>
           </TableHeader>
           {documents.length == 0 ? (
@@ -55,6 +56,11 @@ export const DocumentsTable = ({
           )}
         </Table>
       )}
+      <div className="flex items-center justify-center">
+        <Button variant="ghost" size="sm" onClick={() => loadMore(10)} disabled={status != "CanLoadMore"}>
+          {status === "CanLoadMore" ? "Load More" : "End of results"}
+        </Button>
+      </div>
     </div>
   )
 }
